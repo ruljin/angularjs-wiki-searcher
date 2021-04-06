@@ -11,6 +11,10 @@
 
 This project is an application that will look for the top 10 results in the Wikipedia API based on the searched phrase. The phrase will be highlighted in the results and give then a possibility to replace the first highlighted phrase (or all) with your own text. This is a browser based web application, so no installation is required.
 
+<img src="https://res.cloudinary.com/dox1tzpb0/image/upload/v1617704210/example_1_uweslo.jpg">
+<img src="https://res.cloudinary.com/dox1tzpb0/image/upload/v1617704210/example_2_oti0tv.jpg">
+<img src="https://res.cloudinary.com/dox1tzpb0/image/upload/v1617704210/example_3_r8gv4o.jpg">
+
 ## Features
 
 - The view contain the "search phrase", "replace with" input fields and three buttons: search, replace and replace all,
