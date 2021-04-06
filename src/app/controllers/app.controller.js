@@ -38,7 +38,15 @@ function AppController() {
     vm.results = resultsWithReplacedWord;
   }
 
-  function handleReplaceAll(replacePhrase) {}
+  function handleReplaceAll(replacePhrase) {
+    vm.replace = replacePhrase;
+    var resultsCopy = JSON.parse(JSON.stringify(vm.results));
+    var resultsWithReplacedWords = replaceAllHighlightedWordOccurence(
+      resultsCopy,
+      replacePhrase
+    );
+    vm.results = resultsWithReplacedWords;
+  }
 
   function createParamsUrl() {
     var params = {
@@ -66,6 +74,15 @@ function AppController() {
         regExp,
         replacePhrase
       ));
+    return oldResults;
+  }
+
+  function replaceAllHighlightedWordOccurence(oldResults, replacePhrase) {
+    var regExp = new RegExp("<s*span[^>]*>(.*?)<s*/s*span>", "g");
+    vm.replace = replacePhrase;
+    oldResults.forEach((result) => {
+      result.snippet = result.snippet.replaceAll(regExp, vm.replace);
+    });
     return oldResults;
   }
 }
