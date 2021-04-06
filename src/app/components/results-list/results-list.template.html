@@ -1,0 +1,8 @@
+<ul>
+  <li ng-repeat="result in vm.results">
+    <article>
+      <h2 class="article__title">{{result.title}}</h2>
+      <p ng-bind-html="result.snippet"></p>
+    </article>
+  </li>
+</ul>

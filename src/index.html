@@ -32,6 +32,20 @@
           handle-replace-all="vm.handleReplaceAll(replacePhrase)"
         ></replace-input>
       </div>
+
+      <div>
+        <div class="no-results" ng-show="vm.results.length === 0">
+          <img class="no-results__image" src="app/assets/sad_face.png" />
+          <span class="no-results__text no-results--center"
+            >Oops! No results.</span
+          >
+          <span class="no-results__text no-results--center">
+            If you haven't tried to find anything yet, enter the search term at
+            the top and click 'Search'!
+          </span>
+        </div>
+        <results-list results="vm.results"></results-list>
+      </div>
     </main>
 
     <script src="./app/app.module.js"></script>
@@ -39,5 +53,6 @@
     <script src="app/controllers/app.controller.js"></script>
     <script src="app/components/search-input/search-input.component.js"></script>
     <script src="app/components/replace-input/replace-input.component.js"></script>
+    <script src="app/components/results-list/results-list.component.js"></script>
   </body>
 </html>
