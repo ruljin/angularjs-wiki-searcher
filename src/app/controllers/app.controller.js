@@ -28,7 +28,15 @@ function AppController() {
       });
   }
 
-  function handleReplace(replacePhrase) {}
+  function handleReplace(replacePhrase) {
+    vm.replace = replacePhrase;
+    var resultsCopy = JSON.parse(JSON.stringify(vm.results));
+    var resultsWithReplacedWord = replaceFirstHighlightedWordOccurence(
+      resultsCopy,
+      replacePhrase
+    );
+    vm.results = resultsWithReplacedWord;
+  }
 
   function handleReplaceAll(replacePhrase) {}
 
@@ -46,6 +54,19 @@ function AppController() {
       })
       .join("&");
     return paramsString;
+  }
+
+  function replaceFirstHighlightedWordOccurence(oldResults, replacePhrase) {
+    var regExp = new RegExp("<s*span[^>]*>(.*?)<s*/s*span>");
+    const searchedResult = oldResults.find((result) => {
+      return result.snippet.includes(vm.search);
+    });
+    searchedResult &&
+      (searchedResult.snippet = searchedResult.snippet.replace(
+        regExp,
+        replacePhrase
+      ));
+    return oldResults;
   }
 }
 
