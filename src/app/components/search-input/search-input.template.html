@@ -1,0 +1,14 @@
+<div class="field">
+  <div class="field__input">
+    <label>Search phrase</label>
+    <input
+      type="text"
+      name="searchField"
+      placeholder="Type searched phrase"
+      ng-model="vm.search"
+      ng-model-options="{ debounce: 500 }"
+      ng-change="vm.onClick()"
+    />
+  </div>
+  <button type="button" ng-click="vm.onClick()">Search</button>
+</div>
