@@ -15,6 +15,10 @@
     <script src="app/lib/angular-sanitize/angular-sanitize.js"></script>
   </head>
   <body ng-app="app" ng-controller="AppController as vm">
+    <div class="loading" ng-show="vm.loading">
+      <div class="loading__spinner"></div>
+    </div>
+
     <main>
       <div>
         <search-input
