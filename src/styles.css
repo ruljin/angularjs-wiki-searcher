@@ -50,6 +50,7 @@ main {
 /* INPUT */
 .field {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 8px;
@@ -86,10 +87,16 @@ label {
   font-size: 0.85rem;
 }
 
+@media (min-width: 768px) {
+  .field {
+    flex-direction: row;
+  }
+}
+
 /* BUTTON */
 button {
+  width: 100%;
   height: 36px;
-  min-width: 100px;
   margin-bottom: 10px;
   align-self: flex-end;
   color: #fff;
@@ -110,8 +117,14 @@ button:focus {
   outline: none;
 }
 
-.field button:not(:last-child) {
-  margin-right: 0.25em;
+@media (min-width: 768px) {
+  button {
+    min-width: 100px;
+  }
+
+  .field button:not(:last-child) {
+    margin-right: 0.25em;
+  }
 }
 
 /* NO RESULTS */
@@ -129,17 +142,26 @@ button:focus {
 }
 
 .no-results__text {
-  width: 50%;
+  width: 100%;
   margin: 10px 0;
-  font-size: 2em;
+  font-size: 1.3em;
 }
 
 .no-results--center {
   text-align: center;
 }
 
+@media (min-width: 768px) {
+  .no-results__text {
+    width: 50%;
+    margin: 10px 0;
+    font-size: 2em;
+  }
+}
+
 /* LIST */
 ul {
+  padding: 0;
   list-style: none;
 }
 
