@@ -1,0 +1,16 @@
+{
+  "name": "angularjs-wiki-searcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ./src -a localhost -p 8000 -c-1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.8.2",
+    "angular-sanitize": "^1.8.2",
+    "http-server": "^0.12.3"
+  }
+}
