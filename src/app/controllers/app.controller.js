@@ -2,7 +2,7 @@
 
 angular.module("app").controller("AppController", AppController);
 
-function AppController() {
+function AppController(appService) {
   var vm = this;
   vm.handleSearch = handleSearch;
   vm.handleReplace = handleReplace;
