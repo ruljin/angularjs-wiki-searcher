@@ -15,11 +15,25 @@
     <script src="app/lib/angular-sanitize/angular-sanitize.js"></script>
   </head>
   <body>
-    <main></main>
+    <main>
+      <div>
+        <search-input
+          search="vm.search"
+          handle-search="vm.handleSearch(searchedPhrase)"
+        ></search-input>
+        <replace-input
+          replace="vm.replace"
+          results-length="vm.results.length"
+          handle-replace="vm.handleReplace(replacePhrase)"
+          handle-replace-all="vm.handleReplaceAll(replacePhrase)"
+        ></replace-input>
+      </div>
+    </main>
 
     <script src="./app/app.module.js"></script>
     <script src="app/app.config.js"></script>
     <script src="app/controllers/app.controller.js"></script>
     <script src="app/components/search-input/search-input.component.js"></script>
+    <script src="app/components/replace-input/replace-input.component.js"></script>
   </body>
 </html>
