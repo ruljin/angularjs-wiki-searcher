@@ -41,11 +41,12 @@ function AppController(appService) {
   function handleReplaceAll(replacePhrase) {
     vm.replace = replacePhrase;
     var resultsCopy = JSON.parse(JSON.stringify(vm.results));
-    var resultsWithReplacedWords = replaceAllHighlightedWordOccurence(
+    var numberOfSearchedPhrases = countSearchedPhraseNumber(resultsCopy);
+    replaceAllHighlightedWordOccurence(
       resultsCopy,
-      replacePhrase
+      replacePhrase,
+      numberOfSearchedPhrases
     );
-    vm.results = resultsWithReplacedWords;
   }
 
   function createParamsUrl() {
@@ -65,25 +66,61 @@ function AppController(appService) {
   }
 
   function replaceFirstHighlightedWordOccurence(oldResults, replacePhrase) {
-    var regExp = new RegExp("<s*span[^>]*>(.*?)<s*/s*span>");
-    const searchedResult = oldResults.find((result) => {
-      return result.snippet.includes(vm.search);
+    var searchedResult = oldResults.find((result) => {
+      return result.snippet.toLowerCase().includes(vm.search.toLowerCase());
     });
-    searchedResult &&
-      (searchedResult.snippet = searchedResult.snippet.replace(
-        regExp,
+    var regExp = new RegExp(`<s*span[^>]*>(.*?)<s*/s*span>`);
+    if (searchedResult) {
+      var index = searchedResult.snippet
+        .toLowerCase()
+        .indexOf(vm.search.toLowerCase());
+      var newText = replaceWordAtPosition(
+        index,
+        searchedResult.snippet,
         replacePhrase
-      ));
+      );
+      searchedResult.snippet = newText.replace(
+        regExp,
+        newText.match(regExp)[1]
+      );
+    }
     return oldResults;
   }
 
-  function replaceAllHighlightedWordOccurence(oldResults, replacePhrase) {
+  function replaceAllHighlightedWordOccurence(
+    oldResults,
+    replacePhrase,
+    count
+  ) {
+    var newCounter = count;
+    if (newCounter > 0) {
+      var newResults = replaceFirstHighlightedWordOccurence(
+        oldResults,
+        replacePhrase
+      );
+      if (newResults.length) {
+        replaceAllHighlightedWordOccurence(newResults, replacePhrase, --count);
+      }
+    } else {
+      vm.results = oldResults;
+    }
+  }
+
+  function replaceWordAtPosition(index, text, replacement) {
+    return (
+      text.substr(0, index) +
+      replacement +
+      text.substr(index + vm.search.length)
+    );
+  }
+
+  function countSearchedPhraseNumber(collection) {
+    var count = 0;
     var regExp = new RegExp("<s*span[^>]*>(.*?)<s*/s*span>", "g");
-    vm.replace = replacePhrase;
-    oldResults.forEach((result) => {
-      result.snippet = result.snippet.replaceAll(regExp, vm.replace);
+    collection.forEach((element) => {
+      count += (element.snippet.match(regExp) || []).length;
     });
-    return oldResults;
+    return count;
   }
 }
 
